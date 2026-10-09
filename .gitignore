@@ -1,0 +1,6 @@
+/build/
+/managed_components/
+/sdkconfig
+/sdkconfig.old
+/main/broker_ca.pem
+__pycache__/

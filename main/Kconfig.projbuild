@@ -1,0 +1,65 @@
+menu "Home Assistant MQTT buttons"
+    config BUTTON_WIFI_SSID
+        string "Wi-Fi SSID"
+        default ""
+    config BUTTON_WIFI_PASSWORD
+        string "Wi-Fi password"
+        default ""
+    config BUTTON_MQTT_URI
+        string "MQTT broker URI (mqtt://host:1883 or mqtts://host:8883)"
+        default ""
+        help
+            Use the broker's reachable IP address or DNS name.
+            Enter authentication in the separate username/password fields.
+    config BUTTON_MQTT_USERNAME
+        string "MQTT username (optional)"
+        default ""
+    config BUTTON_MQTT_PASSWORD
+        string "MQTT password (optional)"
+        default ""
+    config BUTTON_MQTT_CUSTOM_CA
+        bool "Use main/broker_ca.pem to verify a private MQTT TLS certificate"
+        default n
+        help
+            Copy your broker's CA certificate to main/broker_ca.pem.
+            Otherwise mqtts uses the ESP-IDF public root certificate bundle.
+    config BUTTON_SNTP_SERVER
+        string "NTP server for MQTT TLS certificate date validation"
+        default "pool.ntp.org"
+    config BUTTON_COUNT
+        int "Number of buttons"
+        range 1 4
+        default 1
+    config BUTTON_1_GPIO
+        int "Button 1 GPIO"
+        range 0 33
+        default 0
+        help
+            GPIO0 is BOOT on common ESP32 development boards.
+            Check your board schematic. RESET is not a GPIO button.
+    config BUTTON_2_GPIO
+        int "Button 2 GPIO"
+        depends on BUTTON_COUNT >= 2
+        range 0 33
+        default 25
+    config BUTTON_3_GPIO
+        int "Button 3 GPIO"
+        depends on BUTTON_COUNT >= 3
+        range 0 33
+        default 26
+    config BUTTON_4_GPIO
+        int "Button 4 GPIO"
+        depends on BUTTON_COUNT >= 4
+        range 0 33
+        default 27
+    config BUTTON_ACTIVE_HIGH
+        bool "Buttons are active high (GPIO to 3.3V)"
+        default n
+        help
+            Default: button between GPIO and GND, internal pull-up.
+            Active high: button between GPIO and 3.3V, internal pull-down.
+    config BUTTON_DEBOUNCE_MS
+        int "Debounce interval in milliseconds"
+        range 10 100
+        default 30
+endmenu
